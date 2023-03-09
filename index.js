@@ -20,10 +20,15 @@ mongoose
 
 const app = express();
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://photo-gallery-mk.netlify.app');
+  next();
+});
+
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
-    if(fs.existsSync('uploads')) {
-      fs.mkdirSync('uploads')
+    if (fs.existsSync('uploads')) {
+      fs.mkdirSync('uploads');
     }
     cb(null, 'uploads');
   },
@@ -53,7 +58,7 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
 });
 
 app.post('/delete-image', (req, res) => {
-  const imagePath = path.join( 'uploads', req.body.filename);
+  const imagePath = path.join('uploads', req.body.filename);
 
   // Delete the image file
   fs.unlink(imagePath, (err) => {
