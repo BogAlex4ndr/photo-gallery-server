@@ -46,12 +46,12 @@ app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({
-    url: `/uploads${req.file.originalname}`,
+    url: `uploads/${req.file.originalname}`,
   });
 });
 
 app.post('/delete-image', (req, res) => {
-  const imagePath = path.join('uploads', req.body.filename);
+  const imagePath = path.join('uploads/', req.body.filename);
 
   // Delete the image file
   fs.unlink(imagePath, (err) => {
