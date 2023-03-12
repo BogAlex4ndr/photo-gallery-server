@@ -43,11 +43,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: 'https://photo-gallery-lovat.vercel.app',
-  }),
-);
+// app.use(
+//   cors({
+//     origin: 'https://photo-gallery-lovat.vercel.app',
+//   }),
+// );
 app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
