@@ -19,7 +19,12 @@ mongoose
 const app = express();
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://photo-gallery-mk.netlify.app');
+  // Allow requests from any origin
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Set the allowed HTTP methods to be used
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  // Set the allowed headers for HTTP requests
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
