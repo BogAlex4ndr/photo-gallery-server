@@ -10,9 +10,7 @@ import fs from 'fs';
 import path from 'path';
 
 mongoose
-  .connect(
-    'mongodb+srv://jakasyak:5JEbkQfnQnnzAokB@cluster0.ozmz0gl.mongodb.net/blog?retryWrites=true&w=majority',
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('DB connect successfuly');
   })
@@ -78,7 +76,7 @@ app.post('/posts', checkAuth, PostValidator, PostController.create);
 app.delete('/posts/:id', checkAuth, PostController.remove);
 app.patch('/posts/:id', checkAuth, PostController.update);
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     return err;
   }
