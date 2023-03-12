@@ -18,16 +18,6 @@ mongoose
 
 const app = express();
 
-app.use((req, res, next) => {
-  // Allow requests from any origin
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  // Set the allowed HTTP methods to be used
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  // Set the allowed headers for HTTP requests
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
-
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
     if (fs.existsSync('uploads')) {
@@ -43,11 +33,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: 'https://photo-gallery-lovat.vercel.app',
-//   }),
-// );
+app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
